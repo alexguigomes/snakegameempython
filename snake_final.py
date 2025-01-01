@@ -1,8 +1,5 @@
-##### 10 - Game over ####
 import pygame, random
 from pygame.locals import *
-
-# Helper functions
 def on_grid_random():
     x = random.randint(0,59)
     y = random.randint(0,59)
@@ -11,7 +8,7 @@ def on_grid_random():
 def collision(c1, c2):
     return (c1[0] == c2[0]) and (c1[1] == c2[1])
 
-# Macro definition for snake movement.
+# definir movimentos.
 UP = 0
 RIGHT = 1
 DOWN = 2
