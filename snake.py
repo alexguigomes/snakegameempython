@@ -9,6 +9,13 @@ def on_grid_random():
 def collision(c1, c2):
     return (c1[0] == c2[0]) and (c1[1] == c2[1])
 
+score = 0
+
+def show_score():
+    font = pygame.font.SysFont('monospace', 15)
+    score_text = font.render(f'Score: {score}', True, (255, 255, 255))
+    screen.blit(score_text, (10, 10))
+
 UP = 0
 RIGHT = 1
 DOWN = 2
@@ -26,7 +33,11 @@ apple_pos = on_grid_random()
 apple = pygame.Surface((10,10))
 apple.fill((255,0,0))
 
+collision_sound = pygame.mixer.Sound("pointconfirm.mp3")
+
 my_direction = LEFT
+
+
 
 clock = pygame.time.Clock()
 
@@ -47,8 +58,10 @@ while True:
                 my_direction = RIGHT
 
     if collision(snake[0], apple_pos):
+        score += 1
         apple_pos = on_grid_random()
         snake.append((0,0))
+        pygame.mixer.Sound.play(collision_sound)
 
     for i in range(len(snake) - 1, 0, -1):
         snake[i] = (snake[i-1][0], snake[i-1][1])
@@ -66,5 +79,8 @@ while True:
     screen.blit(apple, apple_pos)
     for pos in snake:
         screen.blit(snake_skin,pos)
+
+    show_score()
+
 
     pygame.display.update()
